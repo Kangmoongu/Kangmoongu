@@ -47,6 +47,7 @@
 
 > Spring Boot 기반 패션 추천 플랫폼  
 > https://www.notion.so/ohgiraffers/55TD-207649136c1180288dabfeb1877485d6
+> https://github.com/SB03-OOTD-Team5/OOTD-Team5
 
 **주요 구현 사항:**
 - 🔐 OAuth2 소셜 로그인 (Google, Kakao) 및 JWT 기반 인증 시스템
@@ -121,6 +122,7 @@ Backend 1   Backend 2
 
 > Spring Boot 기반 뉴스 통합 플랫폼  
 > https://www.notion.so/ohgiraffers/5-207649136c1180968b6bf8028b42b212
+> https://github.com/5josama/sb03-monew-team5
 
 **프로젝트 소개:**
 여러 뉴스 API를 통합하여 사용자에게 맞춤형 뉴스를 제공하고, 댓글을 통해 의견을 나눌 수 있는 소셜 기능을 갖춘 뉴스 플랫폼
@@ -283,6 +285,7 @@ public ResponseEntity<LikeResponse> likeComment(
 
 > Spring Boot 기반 인적자원 관리 시스템  
 > https://www.notion.so/ohgiraffers/5-207649136c1180e79ab9d2751a0a9b1b
+> https://github.com/Codeit-Basic-Project-Team-5/sb3-hrbank-team5
 
 **프로젝트 소개:**
 기업의 인적자원을 체계적으로 관리하고 모니터링하기 위한 HR Management System
