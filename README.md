@@ -58,10 +58,10 @@
 `Spring Boot` `Spring Security` `PostgreSQL` `Redis` `Kafka` `AWS ECS` `Nginx` `Docker`
 
 **주요 트러블슈팅:**
-- [비밀번호 재설정 트랜잭션 이슈 해결](#) - `@TransactionalEventListener` 활용
-- [Redis 직렬화 문제 해결](#) - GenericJackson2JsonRedisSerializer 설정 개선
-- [OAuth2 State 저장 문제](#) - Stateless 환경에서 쿠키 기반 저장소 구현
-- [AWS 비용 최적화](#) - NAT Gateway 단일화로 50% 비용 절감
+- [비밀번호 재설정 타임아웃 이슈 해결](https://www.notion.so/ohgiraffers/29b649136c11807aaface4729fbd0df9?source=copy_link) - 비동키 처리를 통해 해결
+- [Redis 직렬화 문제 해결](https://www.notion.so/ohgiraffers/Redis-Value-29b649136c1180e091b8da37876ca0bb?source=copy_link) - GenericJackson2JsonRedisSerializer 설정 개선
+- [OAuth2 State 저장 문제](https://www.notion.so/ohgiraffers/OAuth-authorization_request_not_found-29b649136c1180fe8b5dcd03f812e01b?source=copy_link) - Stateless 환경에서 쿠키 기반 저장소 구현
+- [AWS 요금 환불 요청 경험 ](https://www.notion.so/ohgiraffers/AWS-29b649136c1180c79428e57b2e901287?source=copy_link) - 문의를 통해 크레딧 115$ 지급 받음
 
 ---
 
