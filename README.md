@@ -6,7 +6,7 @@
 
 - 🔭 클라우드 기반 분산 시스템 아키텍처 설계 및 구현
 - 💡 OAuth2, JWT 기반 인증/인가 시스템 구축
-- 🏗️ AWS ECS, Redis, Kafka를 활용한 MSA 환경 구성
+- 🏗️ AWS ECS, AWS Elastic Cache, Confluent cloud를 활용한 MSA 환경 구성
 
 ---
 
