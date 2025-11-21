@@ -329,6 +329,7 @@ public ResponseEntity<LikeResponse> likeComment(
 
 **주요 트러블슈팅**
 
+
 <details>
 <summary><b>🔴 오름차순 정렬 시 무한 스크롤 발생</b></summary>
 
@@ -544,7 +545,6 @@ try (BufferedWriter writer = new BufferedWriter(
 
 </details>
 
-</details>
 
 
 **주요 성과:**
@@ -661,6 +661,9 @@ public ResponseEntity<Resource> downloadBackup(@PathVariable Long id) {
 - **코드 리뷰**: 팀원 피드백을 적극 수용하고 개선
 - **문서화**: 상세한 PR 작성으로 리뷰 효율성 향상
 - **커뮤니케이션**: 기술적 의사결정 과정 공유
+
+</details>
+
 
 ---
 
