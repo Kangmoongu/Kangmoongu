@@ -59,11 +59,14 @@
 **Tech Stack:**
 `Spring Boot` `Spring Security` `PostgreSQL` `Redis` `Kafka` `AWS ECS` `Nginx` `Docker`
 
-**주요 트러블슈팅:**
-- [비밀번호 재설정 타임아웃 이슈 해결](https://www.notion.so/ohgiraffers/29b649136c11807aaface4729fbd0df9?source=copy_link) - 비동키 처리를 통해 해결
+**주요 구현 및 트러블슈팅:**
+- [비밀번호 재설정 타임아웃 이슈 해결](https://www.notion.so/ohgiraffers/29b649136c11807aaface4729fbd0df9?source=copy_link) - 비동기 처리를 통해 해결
 - [Redis 직렬화 문제 해결](https://www.notion.so/ohgiraffers/Redis-Value-29b649136c1180e091b8da37876ca0bb?source=copy_link) - GenericJackson2JsonRedisSerializer 설정 개선
 - [OAuth2 State 저장 문제](https://www.notion.so/ohgiraffers/OAuth-authorization_request_not_found-29b649136c1180fe8b5dcd03f812e01b?source=copy_link) - Stateless 환경에서 쿠키 기반 저장소 구현
 - [AWS 요금 환불 요청 경험 ](https://www.notion.so/ohgiraffers/AWS-29b649136c1180c79428e57b2e901287?source=copy_link) - 문의를 통해 크레딧 115$ 지급 받음
+- [AWS를 통한 배포 및 분산 환경 구성](https://www.notion.so/ohgiraffers/29a649136c118098aa70c331d169fee7?p=29b649136c1180ddaa9cc2ca946c32f9&pm=c) - AWS을 통해 배포
+- [카카오 vs 구글 OAuth 비교](https://www.notion.so/ohgiraffers/vs-OAuth-29b649136c11803ca901cfe8c3e25e09?source=copy_link) - OAuth2 구현 방법에 대한 깊은 이해
+
 
 ---
 
