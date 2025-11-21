@@ -326,96 +326,8 @@ public ResponseEntity<LikeResponse> likeComment(
 **Tech Stack:**
 `Spring Boot` `Spring Batch` `Spring Scheduler` `JPA` `PostgreSQL` `JPQL`
 
-**주요 성과:**
 
-| 지표 | 달성 내용 |
-|:----:|:--------:|
-| 🔄 자동화 | **1시간 주기 자동 백업** |
-| 📊 데이터 관리 | **CSV 파일 기반 백업** |
-| 🎯 페이지네이션 | **양방향 정렬 커서 구현** |
-| 🛠️ DB 설계 | **전체 Schema 설계 완료** |
-
----
-
-
-### 📝 Development Process
-
-**구현한 주요 기능**
-
-**1. 자동 백업 스케줄링 - 스마트 백업 판단**
-```java
-@Scheduled(cron = "0 0 * * * *")  // 매 시간마다 실행
-public void performScheduledBackup() {
-    // 1. 마지막 백업 시간 조회 (완료된 백업만)
-    Optional<DataBackup> lastBackup = dataBackupRepository
-        .findAll()
-        .stream()
-        .filter(backup -> backup.getEndedAt() != null)
-        .max(Comparator.comparing(DataBackup::getEndedAt));
-    
-    // 2. 변경된 데이터 확인
-    if (lastBackup.isPresent()) {
-        Instant lastBackupTime = lastBackup.get().getEndedAt();
-        boolean hasChanges = employeeRepository
-            .existsByModifiedAtAfter(lastBackupTime);
-        
-        if (!hasChanges) {
-            createSkippedBackup("No changes since last backup");
-            return;
-        }
-    }
-    
-    // 3. 백업 수행
-    performBackup();
-}
-```
-
-**2. 백업 이력 조회 - 양방향 정렬 커서 페이지네이션**
-```java
-@GetMapping("/api/backups")
-public ResponseEntity<CursorPageResponse<BackupResponse>> getBackups(
-        @RequestParam(required = false) String cursor,
-        @RequestParam(required = false) Long idAfter,
-        @RequestParam(defaultValue = "startedAt") String sortField,
-        @RequestParam(defaultValue = "DESC") String sortDirection,
-        @RequestParam(defaultValue = "10") int size) {
-    
-    CursorPageResponse<BackupResponse> response = 
-        backupService.getBackupsWithCursor(cursor, idAfter, sortField, sortDirection, size);
-    
-    return ResponseEntity.ok(response);
-}
-```
-- ✅ 4가지 정렬 조건 지원 (startedAt/endedAt × ASC/DESC)
-- ✅ 작업자, 상태별 필터링
-- ✅ NULL 값 처리 (endedAt 기준 정렬 시)
-
-**3. 백업 파일 다운로드**
-```java
-@GetMapping("/api/backups/{id}/download")
-public ResponseEntity<Resource> downloadBackup(@PathVariable Long id) {
-    DataBackup backup = backupRepository.findById(id)
-        .orElseThrow(() -> new BackupNotFoundException(id));
-    
-    File file = new File(backup.getFilePath());
-    Resource resource = new FileSystemResource(file);
-    
-    return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, 
-            "attachment; filename=\"" + backup.getFileName() + ".csv\"")
-        .contentType(MediaType.parseMediaType("text/csv"))
-        .body(resource);
-}
-```
-- ✅ CSV 파일 다운로드
-- ✅ 한글 파일명 지원
-- ✅ 파일 존재 여부 검증
-
----
-
-### 🔥 Problem Solving
-
-**트러블슈팅 하이라이트**
+**주요 트러블슈팅**
 
 <details>
 <summary><b>🔴 오름차순 정렬 시 무한 스크롤 발생</b></summary>
@@ -633,6 +545,92 @@ try (BufferedWriter writer = new BufferedWriter(
 </details>
 
 </details>
+
+
+**주요 성과:**
+
+| 지표 | 달성 내용 |
+|:----:|:--------:|
+| 🔄 자동화 | **1시간 주기 자동 백업** |
+| 📊 데이터 관리 | **CSV 파일 기반 백업** |
+| 🎯 페이지네이션 | **양방향 정렬 커서 구현** |
+| 🛠️ DB 설계 | **전체 Schema 설계 완료** |
+
+---
+
+
+### 📝 Development Process
+
+**구현한 주요 기능**
+
+**1. 자동 백업 스케줄링 - 스마트 백업 판단**
+```java
+@Scheduled(cron = "0 0 * * * *")  // 매 시간마다 실행
+public void performScheduledBackup() {
+    // 1. 마지막 백업 시간 조회 (완료된 백업만)
+    Optional<DataBackup> lastBackup = dataBackupRepository
+        .findAll()
+        .stream()
+        .filter(backup -> backup.getEndedAt() != null)
+        .max(Comparator.comparing(DataBackup::getEndedAt));
+    
+    // 2. 변경된 데이터 확인
+    if (lastBackup.isPresent()) {
+        Instant lastBackupTime = lastBackup.get().getEndedAt();
+        boolean hasChanges = employeeRepository
+            .existsByModifiedAtAfter(lastBackupTime);
+        
+        if (!hasChanges) {
+            createSkippedBackup("No changes since last backup");
+            return;
+        }
+    }
+    
+    // 3. 백업 수행
+    performBackup();
+}
+```
+
+**2. 백업 이력 조회 - 양방향 정렬 커서 페이지네이션**
+```java
+@GetMapping("/api/backups")
+public ResponseEntity<CursorPageResponse<BackupResponse>> getBackups(
+        @RequestParam(required = false) String cursor,
+        @RequestParam(required = false) Long idAfter,
+        @RequestParam(defaultValue = "startedAt") String sortField,
+        @RequestParam(defaultValue = "DESC") String sortDirection,
+        @RequestParam(defaultValue = "10") int size) {
+    
+    CursorPageResponse<BackupResponse> response = 
+        backupService.getBackupsWithCursor(cursor, idAfter, sortField, sortDirection, size);
+    
+    return ResponseEntity.ok(response);
+}
+```
+- ✅ 4가지 정렬 조건 지원 (startedAt/endedAt × ASC/DESC)
+- ✅ 작업자, 상태별 필터링
+- ✅ NULL 값 처리 (endedAt 기준 정렬 시)
+
+**3. 백업 파일 다운로드**
+```java
+@GetMapping("/api/backups/{id}/download")
+public ResponseEntity<Resource> downloadBackup(@PathVariable Long id) {
+    DataBackup backup = backupRepository.findById(id)
+        .orElseThrow(() -> new BackupNotFoundException(id));
+    
+    File file = new File(backup.getFilePath());
+    Resource resource = new FileSystemResource(file);
+    
+    return ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_DISPOSITION, 
+            "attachment; filename=\"" + backup.getFileName() + ".csv\"")
+        .contentType(MediaType.parseMediaType("text/csv"))
+        .body(resource);
+}
+```
+- ✅ CSV 파일 다운로드
+- ✅ 한글 파일명 지원
+- ✅ 파일 존재 여부 검증
 
 ---
 
